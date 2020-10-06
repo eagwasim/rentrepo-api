@@ -1,0 +1,7 @@
+cron:
+- description: "Load Cities"
+  url: /api/v1/public/cities
+  schedule: 1st mon of jan 19:00
+- description: five minute run
+  url: /
+  schedule: every 5 minutes

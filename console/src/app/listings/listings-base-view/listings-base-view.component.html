@@ -1,0 +1,37 @@
+<nav mat-tab-nav-bar *ngIf="selectedLanguage && !isMobile()" color="primary"
+     style="background: white" class="mat-elevation-z3">
+  <!-- <span style="padding: 15px 20px 10px 20px; font-size: 15px; color: #616469" i18n="@@listingsNavLookingFor">What do you need?</span>
+  --> <a mat-tab-link
+        [active]="activeLink == '/' + selectedLanguage +'/listings/flat-to-share'"
+        [routerLink]="'/' + selectedLanguage  + '/listings/flat-to-share'"
+        (click)="activeLink = '/' + selectedLanguage + '/listings/flat-to-share'"
+        i18n="@@listingsNavFlatToShare">
+  <mat-icon class="icon-padding">king_bed</mat-icon>
+  Flat To Share
+</a>
+  <a mat-tab-link
+     [active]="activeLink == '/' + selectedLanguage  +'/listings/flatmates'"
+     [routerLink]="'/' + selectedLanguage +'/listings/flatmates'"
+     (click)="activeLink = '/' + selectedLanguage + '/listings/flatmates'"
+     i18n="@@listingsNavFlatmate">
+    <mat-icon class="icon-padding">group</mat-icon>
+    Flatmate
+  </a>
+  <a mat-tab-link
+     [active]="activeLink == '/' + selectedLanguage + '/listings/place-to-rent'"
+     [routerLink]="'/' + selectedLanguage + '/listings/place-to-rent'"
+     (click)="activeLink = '/' + selectedLanguage + '/listings/place-to-rent'"
+     i18n="@@listingsNavPlaceToRent">
+    <mat-icon class="icon-padding">apartment</mat-icon>
+    Place To Rent
+  </a>
+  <a mat-tab-link
+     [active]="activeLink == '/' + selectedLanguage + '/listings/tenants'"
+     [routerLink]="'/' + selectedLanguage + '/listings/tenants'"
+     (click)="activeLink = '/' + selectedLanguage + '/listings/tenants'"
+     i18n="@@listingsNavTenant">
+    <mat-icon class="icon-padding">person</mat-icon>
+    Tenant
+  </a>
+</nav>
+<router-outlet></router-outlet>

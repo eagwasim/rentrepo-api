@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="229.5 0 459 169.495975 371.3388 443.746224 87.6611996 443.746224 4.97379915e-14 169.495975"></polygon>
+        <filter x="-2.7%" y="-1.9%" width="105.4%" height="105.6%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="4" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.717152291   0 0 0 0 0.717152291   0 0 0 0 0.717152291  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <filter x="-5.4%" y="-4.9%" width="111.2%" height="111.0%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(26.000000, 34.000000)">
+            <g id="Polygon">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#1D72E8" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <path stroke="#FFFFFF" stroke-width="30" d="M229.5,18.6474077 L17.56221,175.172908 L98.614246,428.746224 L360.385754,428.746224 L441.43779,175.172908 L229.5,18.6474077 Z"></path>
+            </g>
+            <g id="Group-2" filter="url(#filter-3)" transform="translate(128.963746, 131.737160)" stroke="#FED200" stroke-width="12">
+                <ellipse id="Oval" cx="188.9763" cy="116.652037" rx="41.2170532" ry="40.4393729"></ellipse>
+                <circle id="Oval" cx="38.1063322" cy="38.1063322" r="38.1063322"></circle>
+                <circle id="Oval" cx="38.1063322" cy="195.197742" r="38.1063322"></circle>
+                <path d="M38.1063322,76.2126643 L38.1063322,157.09141" id="Line" stroke-linecap="square"></path>
+                <path d="M77.7680248,202.196865 C119.655433,202.196854 147.820716,202.26023 164.86682,192.508079 C173.457787,187.593149 179.679693,175.787593 183.532539,157.09141" id="Path-2"></path>
+            </g>
+        </g>
+    </g>
+</svg>

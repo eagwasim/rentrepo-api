@@ -1,0 +1,160 @@
+<nav mat-tab-nav-bar color="primary" style="background: white" class="mat-elevation-z2">
+  <span class="cus-sub-header" i18n="@@createFlatToShare">List your flat for sharing</span>
+</nav>
+<div class="container padded">
+  <div class="card mat-elevation-z1 padded">
+    <div fxLayout="row" fxLayoutGap="4%" fxLayout.lt-md="column">
+
+      <div fxLayout="column" fxFlex="48%">
+        <form [formGroup]="formData">
+          <p class="cus-content-header " i18n="@@createFlatToShare">Flat Details</p>
+          <mat-form-field appearance="fill" class="fill-width mat-body-1" hintLabel="Max 35 characters">
+            <mat-label i18n="@@createSharedFlatHeadline">Short descriptive headline</mat-label>
+            <input matInput #headline maxlength="35" required formControlName="headline">
+            <mat-hint align="end">{{headline.value?.length || 0}}/35</mat-hint>
+          </mat-form-field>
+          <br>
+          <div fxLayout="row" fxLayoutGap="2%" fxLayout.lt-md="column">
+            <mat-form-field appearance="fill" class="fill-width" fxFlex="70%">
+              <mat-label i18n="@@createSharedFlatLocation">Where is the flat located?</mat-label>
+              <input matInput required formControlName="location" [matAutocomplete]="location">
+              <mat-icon matSuffix class="tool-bar-grey">location_on</mat-icon>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="fill-width" (click)="dp3.open()" fxFlex="28%">
+              <mat-label i18n="@@createSharedFlatWhenWouldItBeAvailable">Available on</mat-label>
+              <input matInput [matDatepicker]="dp3" required>
+              <mat-datepicker-toggle matSuffix [for]="dp3" style="color: black"></mat-datepicker-toggle>
+              <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+            </mat-form-field>
+            <mat-autocomplete #location="matAutocomplete">
+              <mat-option *ngFor="let city of filteredCities" [value]="city">
+                <span>{{ city }}</span>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div fxLayout="row" fxLayoutGap="2%" fxLayout.lt-md="column">
+            <mat-form-field appearance="fill" class="fill-width" fxFlex="15%">
+              <mat-label>Currency</mat-label>
+              <select matNativeControl required>
+                <option *ngFor="let currency of allCurrencies" [value]="currency">{{currency}}</option>
+              </select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="fill-width" fxFlex="49%">
+              <input matInput type="number" class="example-right-align" placeholder="Amount">
+              <span matSuffix>.00</span>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="fill-width">
+              <mat-label>Reoccurring every?</mat-label>
+              <select matNativeControl required>
+                <option value="volvo">Month</option>
+                <option value="saab">Year</option>
+              </select>
+            </mat-form-field>
+          </div>
+          <mat-form-field appearance="fill" class="fill-width" hintLabel="Max 160 characters">
+            <mat-label i18n="@@createSharedFlatDescription">Describe the flat & location in details</mat-label>
+            <textarea matInput #description maxlength="160"></textarea>
+            <mat-hint align="end">{{description.value?.length || 0}}/160</mat-hint>
+          </mat-form-field>
+
+          <p class="cus-content-header " i18n="@@createFlatToShareLifeStyle">My Lifestyle</p>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="0.5%">
+            <div fxFlex="33%">
+              <mat-form-field appearance="fill" class="fill-width">
+                <mat-label>Pet</mat-label>
+                <select matNativeControl required>
+                  <option value="volvo">I have pets</option>
+                  <option value="saab">I don't have pets</option>
+                </select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+              <mat-form-field appearance="fill" class="fill-width">
+                <mat-label>Smoking</mat-label>
+                <select matNativeControl required>
+                  <option value="volvo">Occasionally</option>
+                  <option value="saab">Not at all</option>
+                  <option value="mercedes">I do smoke</option>
+                </select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+              <mat-form-field appearance="fill" class="fill-width">
+                <mat-label>Work Schedule</mat-label>
+                <select matNativeControl required>
+                  <option value="volvo">9-5</option>
+                  <option value="student">I'm a student</option>
+                  <option value="work-from-home">I work from home</option>
+                  <option value="work-at-night">I work only at night</option>
+                  <option value="mixed">A mix of some or all</option>
+                </select>
+              </mat-form-field>
+            </div>
+          </div>
+          <mat-form-field class="example-chip-list">
+            <mat-chip-list #chipList aria-label="Available utilities/services">
+              <mat-chip
+                *ngFor="let fruit of selectedServices"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="remove(fruit)">
+                {{fruit}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input
+                placeholder="Available utilities/services"
+                #servicesInput
+                [formControl]="servicesFormControl"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let fruit of filteredServices | async" [value]="fruit">
+                {{fruit}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <p class="cus-content-header " i18n="@@createFlatToShareFlatmatePreference">Flatmate Preference</p>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
+            <mat-form-field appearance="fill" class="fill-width" fxFlex="49%">
+              <mat-label>Min Age</mat-label>
+              <input matInput type="number" class="example-right-align" placeholder="Monthly Rate">
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="fill-width" fxFlex="49%">
+              <mat-label>Max Age</mat-label>
+              <input matInput type="number" class="example-right-align" placeholder="Monthly Rate">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
+            <mat-form-field appearance="fill" class="fill-width">
+              <mat-label>Employment status</mat-label>
+              <select matNativeControl required>
+                <option value="volvo">Employed</option>
+                <option value="student">Student</option>
+                <option value="work-from-home">Entrepreneur</option>
+                <option value="work-from-home">Unemployed</option>
+              </select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="fill-width">
+              <mat-label>Pets Allowed</mat-label>
+              <select matNativeControl required>
+                <option value="volvo">I don't mind</option>
+                <option value="student">No pets</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+      <div fxLayout="column" fxFlex="48%">
+        <p class="cus-content-header " i18n="@@createFlatToShareFlatImages">Flat Images</p>
+      </div>
+    </div>
+    <mat-divider class="padded"></mat-divider>
+    <div fxLayout="row" fxLayoutGap="4%" fxFlexAlign="right">
+      <button mat-raised-button color="primary" fxFill>PUBLISH LISTING</button>
+    </div>
+  </div>
+</div>
+

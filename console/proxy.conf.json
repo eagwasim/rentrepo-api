@@ -1,0 +1,8 @@
+{
+  "/api/*": {
+    "target": "https://rentrepo.uc.r.appspot.com",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

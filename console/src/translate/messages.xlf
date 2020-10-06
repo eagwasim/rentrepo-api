@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="listingsNavLookingFor" datatype="html">
+        <source>I&apos;m looking for... </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/listings/listings-base-view/listings-base-view.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="listingsNavFlatToShare" datatype="html">
+        <source>
+    <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon&gt;"/>king_bed<x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon&gt;"/>
+    Flat To Share
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/listings/listings-base-view/listings-base-view.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="listingsNavFlatmate" datatype="html">
+        <source>
+    <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon&gt;"/>group<x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon&gt;"/>
+    Flatmate
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/listings/listings-base-view/listings-base-view.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="listingsNavPlaceToRent" datatype="html">
+        <source>
+    <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon&gt;"/>apartment<x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon&gt;"/>
+    Place To Rent
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/listings/listings-base-view/listings-base-view.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="listingsNavTenant" datatype="html">
+        <source>
+    <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon&gt;"/>person<x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon&gt;"/>
+    Tenant
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/listings/listings-base-view/listings-base-view.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="baseViewSearchPlaceholder" datatype="html">
+        <source>City, Country...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/commons/base-view/base-view.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="baseViewLoginOrSignup" datatype="html">
+        <source>Login/Signup</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/commons/base-view/base-view.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

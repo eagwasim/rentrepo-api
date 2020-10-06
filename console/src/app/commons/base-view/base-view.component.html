@@ -1,0 +1,155 @@
+<mat-drawer-container fullscreen style="background: rgba(0,0,0,0.05)">
+  <mat-drawer #drawer [mode]="sideNavMode" [opened]="sideNaveOpen" class="mat-elevation-z4">
+    <mat-nav-list style="margin-top: 8px">
+      <mat-list-item class="tool-bar-menu" routerLinkActive="active">
+        <mat-icon mat-list-icon>location_on</mat-icon>
+        <mat-form-field appearance="fill" floatLabel="never">
+          <input matInput placeholder="City, Country..." i18n-placeholder="@@baseViewSearchPlaceholder" [autofocus]="false">
+        </mat-form-field>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <h3 mat-subheader i18n="@@baseViewLookingFor">What do you need?</h3>
+      <mat-list-item
+        *ngIf="selectedLanguage"
+        class="tool-bar-menu"
+        routerLinkActive="active"
+        (click)="drawer.toggle()"
+        [routerLink]="'/' + selectedLanguage + '/listings/flat-to-share'">
+        <mat-icon mat-list-icon class="tool-bar-grey">king_bed</mat-icon>
+        <h4 mat-line i18n="@@sideNavFlatToShare">Flat To Share</h4>
+      </mat-list-item>
+      <mat-list-item
+        *ngIf="selectedLanguage"
+        class="tool-bar-menu"
+        routerLinkActive="active"
+        (click)="drawer.toggle()"
+        [routerLink]="'/' + selectedLanguage + '/listings/flatmates'"
+        i18n="@@sideNavFlatmate">
+        <mat-icon mat-list-icon class="tool-bar-grey">group</mat-icon>
+        <h4 mat-line>Flatmate</h4>
+      </mat-list-item>
+      <mat-list-item
+        *ngIf="selectedLanguage"
+        class="tool-bar-menu"
+        routerLinkActive="active"
+        (click)="drawer.toggle()"
+        [routerLink]="'/' + selectedLanguage  +'/listings/place-to-rent'"
+        i18n="@@sideNavPlaceToRent">
+        <mat-icon mat-list-icon class="tool-bar-grey">apartment</mat-icon>
+        <h4 mat-line>Place To Rent</h4>
+      </mat-list-item>
+      <mat-list-item
+        *ngIf="selectedLanguage"
+        class="tool-bar-menu"
+        routerLinkActive="active"
+        (click)="drawer.toggle()"
+        [routerLink]="'/' + selectedLanguage + '/listings/tenants'"
+        i18n="@@sideNavTenant">
+        <mat-icon mat-list-icon class="tool-bar-grey">person</mat-icon>
+        <h4 mat-line>Tenant</h4>
+      </mat-list-item>
+      <h3 mat-subheader *ngIf="selectedLanguage && user" i18n="@@baseViewLookingFor">Messaging</h3>
+      <mat-list-item
+        *ngIf="selectedLanguage && user"
+        class="tool-bar-menu"
+        routerLinkActive="active"
+        (click)="drawer.toggle()"
+        [routerLink]="'/' + selectedLanguage + '/conversations'"
+        i18n="@@sideNavMessagingConversations">
+        <mat-icon mat-list-icon class="tool-bar-grey">message</mat-icon>
+        <h4 mat-line>Conversations</h4>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-toolbar color="primary" [ngClass]="elevateNav ? 'mat-elevation-z4 app-toolbar' : 'app-toolbar'">
+    <button mat-icon-button (click)="drawer.toggle()" class="visible-xs">
+      <mat-icon aria-label="Menu">menu</mat-icon>
+    </button>
+    <a mat-button routerLink="/">
+      <img src="assets/images/rent-repo.svg" height="34">
+      <span style="margin-left: 8px; font-weight: bold; font-size: 20px">Rent</span>
+      <span style="margin-right: 8px;  font-size: 20px">Repo</span>
+    </a>
+    <mat-form-field appearance="outline" floatLabel="never" class="hidden-xs">
+      <input matInput placeholder="City, Country..." i18n-placeholder="@@baseViewSearchPlaceholder">
+      <mat-icon matPrefix>location_on</mat-icon>
+    </mat-form-field>
+    <span class="fill"></span>
+    <div *ngIf="user">
+      <button mat-icon-button class="visible-xs" [matMenuTriggerFor]="newListingMenu">
+        <mat-icon>playlist_add</mat-icon>
+      </button>
+      <button mat-stroked-button style="margin-right: 8px" class="white-stroke hidden-xs"
+              [matMenuTriggerFor]="newListingMenu"
+              i18n="@@newListingButton">
+        NEW LISTING
+        <mat-icon matPrefix>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #newListingMenu="matMenu">
+        <button mat-menu-item i18n="@@iHaveAFlatToShare" routerLink="flat-to-share/create">I have a flat to share
+        </button>
+        <button mat-menu-item i18n="@@iNeedAFlatToShare">I need a flat to share (Flatmate)</button>
+        <button mat-menu-item i18n="@@iHaveAPlaceToRent">I have place to rent</button>
+        <button mat-menu-item i18n="@@iNeedAPlaceToRent">I need place to rent (Tenant)</button>
+      </mat-menu>
+      <button mat-icon-button style="margin-right: 8px" class="hidden-xs">
+        <mat-icon>message</mat-icon>
+      </button>
+    </div>
+    <button mat-icon-button [matMenuTriggerFor]="menu" style="margin-right: 8px">
+      <flag-icon country="{{supportedLanguages[selectedLanguage]['countryCode']}}"></flag-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <a mat-menu-item [href]="routeForLanguage(item[0])" *ngFor="let item of supportedLanguagesList; index as i;">
+        <flag-icon country="{{item[1]['countryCode']}}"></flag-icon>
+        {{item[1]['name']}}
+      </a>
+    </mat-menu>
+    <div *ngIf="user">
+      <button mat-icon-button [matMenuTriggerFor]="profileMenu" style="margin-right: 8px">
+        <img src="{{user['photo']}}" class="profile-img">
+      </button>
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="listings">My Listings</button>
+        <mat-menu #listings="matMenu">
+          <button mat-menu-item>Flat sharing</button>
+          <button mat-menu-item>Flatmate</button>
+          <button mat-menu-item>Place to rent</button>
+          <button mat-menu-item>Tenant</button>
+        </mat-menu>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="signOut()">
+          Sign out
+        </button>
+      </mat-menu>
+    </div>
+    <div *ngIf="!isLoading  && !user">
+      <button mat-stroked-button [matMenuTriggerFor]="menu1" i18n="@@baseViewLoginOrSignup" class="white-stroke">
+        Login
+      </button>
+      <mat-menu #menu1="matMenu">
+        <button mat-menu-item [disabled]="true" i18n="@@baseViewSignInWith">Sign in with</button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="signInWithGoogle()">
+          <ngx-fa name="google" size="lg" style="margin-right: 16px"></ngx-fa>
+          Google
+        </button>
+        <button mat-menu-item (click)="signInWithFB()">
+          <ngx-fa name="facebook" size="lg" style="margin-right: 16px"></ngx-fa>
+          Facebook
+        </button>
+        <button mat-menu-item (click)="signInWithTwitter()">
+          <ngx-fa name="twitter" size="lg" style="margin-right: 16px"></ngx-fa>
+          Twitter
+        </button>
+        <button mat-menu-item (click)="signInWithGitHub()">
+          <ngx-fa name="github" size="lg" style="margin-right: 16px"></ngx-fa>
+          Github
+        </button>
+      </mat-menu>
+    </div>
+    <mat-progress-spinner mode="indeterminate" diameter="24" color="accent" *ngIf="isLoading"></mat-progress-spinner>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+</mat-drawer-container>
+

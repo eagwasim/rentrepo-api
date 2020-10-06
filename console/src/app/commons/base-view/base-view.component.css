@@ -1,0 +1,55 @@
+mat-form-field.mat-form-field {
+  font-size: 10px;
+  margin-top: 10px;
+  margin-left: 16px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: lightgrey;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: lightgrey;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: lightgrey;
+}
+
+::ng-deep .mat-input-underline {
+  display: none;
+}
+
+mat-list-item.active, mat-list-item:focus {
+  background-color: rgba(0, 0, 0, 0.06);
+  margin-right: 4px;
+  color: #057A72 !important;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 10px !important;
+  padding: .75em .75em 0 .75em;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.profile-img {
+  border-radius: 50%;
+  height: 32px;
+}
+
+/* Border */
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: rgba(255, 255, 255, 0.15) !important;
+  background-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+/* Font color */
+input.mat-input-element {
+  color: rgba(255, 255, 255, 0.12) !important;
+}
+
+

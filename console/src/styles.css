@@ -1,0 +1,72 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  background: #e9eaed;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.fill {
+  flex: 1 1 auto;
+}
+
+.fill-width {
+  width: 100%;
+}
+
+.tool-bar-grey {
+  color: #616469;
+}
+
+.white-stroke {
+  border: 1px solid #ffffffc2 !important;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+}
+
+.padded {
+  padding: 16px;
+}
+
+.cus-sub-header {
+  padding: 15px 20px 15px 20px;
+  font-size: 20px;
+  color: #616469
+}
+
+.cus-content-header {
+  padding-top: 16px;
+  padding-bottom: 8px;
+  font-size: 20px;
+  color: #616469
+}
+
+.scrollable-panel {
+  height: 100%;
+  overflow: auto;
+}
+
+.app-toolbar {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+
+.app-sub-toolbar {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 100px;
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+
+.mat-input-element  {
+  font-size: 16px !important;
+}
