@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { DataApiServiceService } from './data-api-service.service';
+import {DataApiServiceService} from './data-api-service.service';
 
 describe('DataApiServiceService', () => {
   let service: DataApiServiceService;

@@ -14,7 +14,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.util.ResourceUtils;
 
 import javax.inject.Named;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Named

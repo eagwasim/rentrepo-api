@@ -5,13 +5,10 @@ import com.noubug.rentrepo.domain.gateway.CityDomainGateway;
 import com.noubug.rentrepo.infrastructure.web.controllers.model.CityRequest;
 import com.noubug.rentrepo.usecases.DataPreloadingUseCase;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.util.ResourceUtils;
 
 import javax.inject.Named;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Scanner;
 
 @Named
 @Log4j2
