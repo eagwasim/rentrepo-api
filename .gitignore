@@ -34,7 +34,7 @@ build/
 
 
 ###-------------------------
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+# See http://help.github.com/ignore-files/ for more about ignoring listingImages.
 
 # compiled output
 console/dist
@@ -46,7 +46,7 @@ console/bazel-out
 # dependencies
 console/node_modules
 
-# profiling files
+# profiling listingImages
 chrome-profiler-events*.json
 speed-measure-plugin*.json
 

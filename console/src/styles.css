@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style listingImages */
 
 html, body {
   height: 100%;
@@ -35,6 +35,10 @@ body {
   padding: 16px;
 }
 
+.margin {
+  margin: 16px;
+}
+
 .cus-sub-header {
   padding: 15px 20px 15px 20px;
   font-size: 20px;
@@ -67,6 +71,28 @@ body {
   z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
 }
 
-.mat-input-element  {
+.mat-input-element {
   font-size: 16px !important;
+}
+
+.centered-block {
+  width: 100%;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  position: absolute;
+}
+
+.top-right-block {
+  width: 100%;
+  right: 0;
+  top: 0;
+  -webkit-transform: translate(-50%, 0);
+  position: absolute;
+}
+
+.listing-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
 }

@@ -22,6 +22,7 @@ import {NgxFirebaseClientModule} from "@ngx-firebase/client";
 import {MatNativeDateModule} from "@angular/material/core";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {NgxFileDropModule} from "ngx-file-drop";
 
 const fbLoginOptions = {
   scope: 'email',
@@ -41,6 +42,7 @@ const googleLoginOptions = {
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NgxFileDropModule,
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,

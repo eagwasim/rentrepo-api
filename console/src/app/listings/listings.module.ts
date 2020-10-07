@@ -14,6 +14,8 @@ import {CustomMaterialModule} from "../commons/custom-material.module";
 import {CreateFlatShareListingComponent} from './create-flat-share-listing/create-flat-share-listing.component';
 import {A11yModule} from "@angular/cdk/a11y";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {NgxFileDropModule} from "ngx-file-drop";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 @NgModule({
@@ -36,6 +38,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     A11yModule,
     FormsModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
   ]
 })
 export class ListingsModule {

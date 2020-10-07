@@ -9,6 +9,7 @@ import {CustomMaterialModule} from "./custom-material.module";
 import {NgxFontAwesomeModule} from "ngx-font-awesome";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {A11yModule} from "@angular/cdk/a11y";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -19,7 +20,9 @@ import {A11yModule} from "@angular/cdk/a11y";
     CustomMaterialModule,
     NgxFontAwesomeModule,
     MatProgressSpinnerModule,
-    A11yModule
+    A11yModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class CommonsModule {

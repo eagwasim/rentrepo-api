@@ -6,6 +6,9 @@ import {LocalStorageService} from "ngx-localstorage";
 import {CdkScrollable, ScrollDispatcher} from "@angular/cdk/overlay";
 import {NgxFirebaseClientService} from "@ngx-firebase/client";
 import {staticData} from "../../../environments/data";
+import {debounceTime, finalize, switchMap, tap} from "rxjs/operators";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {DataApiServiceService} from "../data-api-service.service";
 
 @Component({
   selector: 'app-base-view',
@@ -19,12 +22,15 @@ export class BaseViewComponent implements OnInit {
   selectedLanguage;
   supportedLanguages;
   supportedLanguagesList;
-
+  isSearchingLocations = false;
   isLoading = false;
   user;
 
   scrollTop = 0;
   elevateNav = false;
+  formData;
+  formDataMobile;
+  filteredCities: string[] = [];
 
   constructor(
     private mediaQuery: MediaQueryService,
@@ -34,6 +40,7 @@ export class BaseViewComponent implements OnInit {
     private accessService: AccessService,
     private scrollDispatcher: ScrollDispatcher,
     private firebase: NgxFirebaseClientService,
+    private dataApiService: DataApiServiceService,
     private zone: NgZone) {
   }
 
@@ -66,6 +73,18 @@ export class BaseViewComponent implements OnInit {
         this.elevateNav = scrollPosition > 30;
       });
     });
+    this.formData = new FormGroup({
+      location: new FormControl("", Validators.compose([])),
+    });
+    this.formDataMobile = new FormGroup({
+      location: new FormControl("", Validators.compose([])),
+    });
+    this.route.queryParams.subscribe(params => {
+      let city = params['city'] || "";
+      this.formData.get('location').setValue(city); // Print the parameter to the console.
+      this.formDataMobile.get('location').setValue(city);
+    });
+    this.setUpLocationAutoComplete();
   }
 
   isMobile(): boolean {
@@ -154,4 +173,26 @@ export class BaseViewComponent implements OnInit {
     return this.activeLink.replace('/' + this.selectedLanguage + '/', '/' + langCode + '/');
   }
 
+  setUpLocationAutoComplete() {
+    this.formData.get('location').valueChanges
+      .pipe(
+        debounceTime(300),
+        tap(() => this.isSearchingLocations = true),
+        switchMap(value => this.dataApiService.searchCities(value as string)
+          .pipe(
+            finalize(() => this.isSearchingLocations = false)
+          )
+        )
+      ).subscribe(cities => this.filteredCities = cities);
+    this.formDataMobile.get('location').valueChanges
+      .pipe(
+        debounceTime(300),
+        tap(() => this.isSearchingLocations = true),
+        switchMap(value => this.dataApiService.searchCities(value as string)
+          .pipe(
+            finalize(() => this.isSearchingLocations = false)
+          )
+        )
+      ).subscribe(cities => this.filteredCities = cities);
+  }
 }

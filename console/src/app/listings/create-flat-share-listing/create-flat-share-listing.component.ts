@@ -7,6 +7,9 @@ import {MatChipInputEvent} from "@angular/material/chips";
 import {debounceTime, finalize, map, startWith, switchMap, tap} from 'rxjs/operators';
 import {staticData} from "../../../environments/data";
 import {DataApiServiceService} from "../../commons/data-api-service.service";
+import {FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry} from "ngx-file-drop";
+import {FileHolder} from "../../commons/file-holder";
+import {NgxFirebaseClientService} from "@ngx-firebase/client";
 
 @Component({
   selector: 'app-create-flat-share-listing',
@@ -28,12 +31,14 @@ export class CreateFlatShareListingComponent implements OnInit {
   allServices: string[] = staticData.services;
   filteredCities: string[] = [];
 
+  listingImages: FileHolder[] = [];
+
   formData;
 
   @ViewChild('servicesInput') fruitInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor(private dataApiService: DataApiServiceService) {
+  constructor(private dataApiService: DataApiServiceService, private firebaseService: NgxFirebaseClientService) {
     this.filteredServices = this.servicesFormControl.valueChanges.pipe(
       startWith(null),
       map((fruit: string | null) => fruit ? this._filter(fruit) : this.allServices.slice()));
@@ -116,11 +121,12 @@ export class CreateFlatShareListingComponent implements OnInit {
       minAgePreference: new FormControl("", Validators.compose([
         Validators.required,
         Validators.min(18),
+        Validators.max(65),
       ])),
       maxAgePreference: new FormControl("", Validators.compose([
         Validators.required,
         Validators.min(18),
-        Validators.max(137),
+        Validators.max(65),
       ])),
       employmentStatusPreference: new FormControl("", Validators.compose([
         Validators.required,
@@ -130,6 +136,13 @@ export class CreateFlatShareListingComponent implements OnInit {
       ])),
     });
     this.setUpLocationAutoComplete();
+
+    this.listingImages.push(
+      new FileHolder(this.firebaseService, null),
+      new FileHolder(this.firebaseService, null),
+      new FileHolder(this.firebaseService, null),
+      new FileHolder(this.firebaseService, null)
+    );
   }
 
   setUpLocationAutoComplete() {
@@ -145,4 +158,11 @@ export class CreateFlatShareListingComponent implements OnInit {
       ).subscribe(cities => this.filteredCities = cities);
   }
 
+  createListing() {
+    console.log(this.formData.value);
+  }
+
+  formInValid(): boolean {
+    return this.formData.status == 'INVALID' || this.formData.get('minAgePreference').value > this.formData.get('maxAgePreference').value;
+  }
 }
