@@ -3,7 +3,7 @@ package com.noubug.rentrepo.infrastructure.web.controllers.model;
 import lombok.Data;
 
 @Data
-public class CreateFlatToShareListingRequestJSON {
+public class CreatePlaceToShareListingRequestJSON {
     private Long amount;
     private String availableServices;
     private String currency;
