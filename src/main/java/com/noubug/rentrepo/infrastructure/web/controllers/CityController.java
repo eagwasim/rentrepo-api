@@ -1,10 +1,12 @@
 package com.noubug.rentrepo.infrastructure.web.controllers;
 
-import com.noubug.rentrepo.infrastructure.web.controllers.model.CityRequest;
+import com.noubug.rentrepo.infrastructure.web.controllers.model.CityRequestJSON;
 import com.noubug.rentrepo.usecases.DataPreloadingUseCase;
 import com.noubug.rentrepo.usecases.SearchCitiesUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/public/cities")
@@ -18,8 +20,21 @@ public class CityController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createCity(@RequestBody CityRequest cityRequest) {
-        dataPreloadingUseCase.createCity(cityRequest);
+    public ResponseEntity<?> createCity(@RequestBody CityRequestJSON cityRequestJSON) {
+        dataPreloadingUseCase.createCity(cityRequestJSON);
+        return ResponseEntity.ok("done");
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteCities() {
+        dataPreloadingUseCase.clear();
+        return ResponseEntity.ok("done");
+    }
+
+
+    @PostMapping("/multiple")
+    public ResponseEntity<?> createCities(@RequestBody List<CityRequestJSON> cityRequestJSON) {
+        dataPreloadingUseCase.createCities(cityRequestJSON);
         return ResponseEntity.ok("done");
     }
 

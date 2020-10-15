@@ -28,9 +28,6 @@ export class BaseViewComponent implements OnInit {
 
   scrollTop = 0;
   elevateNav = false;
-  formData;
-  formDataMobile;
-  filteredCities: string[] = [];
 
   constructor(
     private mediaQuery: MediaQueryService,
@@ -51,11 +48,12 @@ export class BaseViewComponent implements OnInit {
 
     this.route.paramMap.subscribe(params => {
       let language = params.get("languageCode");
-      if (this.supportedLanguages[language] == undefined) {
+      if (language == undefined || this.supportedLanguages[language] == undefined) {
         this.router.navigate(['']);
       } else {
         this.selectedLanguage = language;
         this.firebase.auth().languageCode = language;
+        this.storage.set('x-lang', language);
       }
     });
 
@@ -73,18 +71,6 @@ export class BaseViewComponent implements OnInit {
         this.elevateNav = scrollPosition > 30;
       });
     });
-    this.formData = new FormGroup({
-      location: new FormControl("", Validators.compose([])),
-    });
-    this.formDataMobile = new FormGroup({
-      location: new FormControl("", Validators.compose([])),
-    });
-    this.route.queryParams.subscribe(params => {
-      let city = params['city'] || "";
-      this.formData.get('location').setValue(city); // Print the parameter to the console.
-      this.formDataMobile.get('location').setValue(city);
-    });
-    this.setUpLocationAutoComplete();
   }
 
   isMobile(): boolean {
@@ -142,7 +128,6 @@ export class BaseViewComponent implements OnInit {
   signInWithFB(): void {
     let facebookAuthProvider = new this.firebase.firebase.auth.FacebookAuthProvider();
     this.signIn(facebookAuthProvider);
-    //this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   signInWithGitHub(): void {
@@ -171,28 +156,5 @@ export class BaseViewComponent implements OnInit {
 
   routeForLanguage(langCode: string) {
     return this.activeLink.replace('/' + this.selectedLanguage + '/', '/' + langCode + '/');
-  }
-
-  setUpLocationAutoComplete() {
-    this.formData.get('location').valueChanges
-      .pipe(
-        debounceTime(300),
-        tap(() => this.isSearchingLocations = true),
-        switchMap(value => this.dataApiService.searchCities(value as string)
-          .pipe(
-            finalize(() => this.isSearchingLocations = false)
-          )
-        )
-      ).subscribe(cities => this.filteredCities = cities);
-    this.formDataMobile.get('location').valueChanges
-      .pipe(
-        debounceTime(300),
-        tap(() => this.isSearchingLocations = true),
-        switchMap(value => this.dataApiService.searchCities(value as string)
-          .pipe(
-            finalize(() => this.isSearchingLocations = false)
-          )
-        )
-      ).subscribe(cities => this.filteredCities = cities);
   }
 }

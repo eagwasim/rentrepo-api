@@ -1,31 +1,13 @@
 <mat-drawer-container fullscreen style="background: rgba(0,0,0,0.05)">
   <mat-drawer #drawer [mode]="sideNavMode" [opened]="sideNaveOpen" class="mat-elevation-z4">
     <mat-nav-list style="margin-top: 8px">
-
-      <mat-list-item class="tool-bar-menu" routerLinkActive="active">
-        <form [formGroup]="formData">
-          <mat-icon mat-list-icon>location_on</mat-icon>
-          <mat-form-field appearance="fill" floatLabel="never">
-            <input matInput placeholder="City, Country..."
-                   i18n-placeholder="@@baseViewSearchPlaceholder"
-                   formControlName="location" [matAutocomplete]="location"
-                   [autofocus]="false">
-          </mat-form-field>
-          <mat-autocomplete #location="matAutocomplete">
-            <mat-option *ngFor="let city of filteredCities" [value]="city">
-              <span>{{ city }}</span>
-            </mat-option>
-          </mat-autocomplete>
-        </form>
-      </mat-list-item>
-      <mat-divider></mat-divider>
       <h3 mat-subheader i18n="@@baseViewLookingFor">What do you need?</h3>
       <mat-list-item
         *ngIf="selectedLanguage"
         class="tool-bar-menu"
         routerLinkActive="active"
         (click)="drawer.toggle()"
-        [routerLink]="'/' + selectedLanguage + '/listings/flat-to-share'">
+        [routerLink]="'/' + selectedLanguage + '/listings/places/sharing'">
         <mat-icon mat-list-icon class="tool-bar-grey">king_bed</mat-icon>
         <h4 mat-line i18n="@@sideNavFlatToShare">Flat To Share</h4>
       </mat-list-item>
@@ -44,7 +26,7 @@
         class="tool-bar-menu"
         routerLinkActive="active"
         (click)="drawer.toggle()"
-        [routerLink]="'/' + selectedLanguage  +'/listings/place-to-rent'"
+        [routerLink]="'/' + selectedLanguage  +'/listings/places/renting'"
         i18n="@@sideNavPlaceToRent">
         <mat-icon mat-list-icon class="tool-bar-grey">apartment</mat-icon>
         <h4 mat-line>Place To Rent</h4>
@@ -58,6 +40,16 @@
         i18n="@@sideNavTenant">
         <mat-icon mat-list-icon class="tool-bar-grey">person</mat-icon>
         <h4 mat-line>Tenant</h4>
+      </mat-list-item>
+      <mat-list-item
+        *ngIf="selectedLanguage"
+        class="tool-bar-menu"
+        routerLinkActive="active"
+        (click)="drawer.toggle()"
+        [routerLink]="'/' + selectedLanguage + '/listings/services'"
+        i18n="@@sideNavServices">
+        <mat-icon mat-list-icon class="tool-bar-grey">room_service</mat-icon>
+        <h4 mat-line>Services</h4>
       </mat-list-item>
       <h3 mat-subheader *ngIf="selectedLanguage && user" i18n="@@baseViewLookingFor">Messaging</h3>
       <mat-list-item
@@ -73,7 +65,7 @@
     </mat-nav-list>
   </mat-drawer>
   <mat-toolbar color="primary" [ngClass]="elevateNav ? 'mat-elevation-z4 app-toolbar' : 'app-toolbar'">
-    <button mat-icon-button (click)="drawer.toggle()" [fxHide.gt-md]="true">
+    <button mat-icon-button (click)="drawer.toggle()" [fxHide.gt-sm]="true">
       <mat-icon aria-label="Menu">menu</mat-icon>
     </button>
     <a mat-button routerLink="/">
@@ -81,21 +73,6 @@
       <span style="margin-left: 8px; font-weight: bold; font-size: 20px">Rent</span>
       <span style="margin-right: 8px;  font-size: 20px">Repo</span>
     </a>
-    <form [formGroup]="formDataMobile">
-      <mat-form-field appearance="fill" floatLabel="never" [style.width.px]=300 [fxHide.lt-md]="true">
-        <mat-icon mat-list-icon matPrefix>location_on</mat-icon>
-        <input matInput placeholder="City, Country..."
-               style="color: white !important;"
-               i18n-placeholder="@@baseViewSearchPlaceholder"
-               formControlName="location" [matAutocomplete]="location1"
-               [autofocus]="false">
-      </mat-form-field>
-      <mat-autocomplete #location1="matAutocomplete">
-        <mat-option *ngFor="let city of filteredCities" [value]="city">
-          <span>{{ city }}</span>
-        </mat-option>
-      </mat-autocomplete>
-    </form>
     <span class="fill"></span>
     <div *ngIf="user">
       <button mat-icon-button class="visible-xs" [matMenuTriggerFor]="newListingMenu">
@@ -108,11 +85,21 @@
         <mat-icon matPrefix>arrow_drop_down</mat-icon>
       </button>
       <mat-menu #newListingMenu="matMenu">
-        <button mat-menu-item i18n="@@iHaveAFlatToShare" routerLink="flat-to-share/create">I have a flat to share
+        <button mat-menu-item i18n="@@iHaveAFlatToShare" routerLink="places/sharing/create">
+          I have a place to share
         </button>
-        <button mat-menu-item i18n="@@iNeedAFlatToShare">I need a flat to share (Flatmate)</button>
-        <button mat-menu-item i18n="@@iHaveAPlaceToRent">I have place to rent</button>
-        <button mat-menu-item i18n="@@iNeedAPlaceToRent">I need place to rent (Tenant)</button>
+        <button mat-menu-item i18n="@@iNeedAFlatToShare" routerLink="flatmates/create">
+          I need a place to share (Flatmate)
+        </button>
+        <button mat-menu-item i18n="@@iHaveAPlaceToRent" routerLink="places/renting/create">
+          I have place to rent
+        </button>
+        <button mat-menu-item i18n="@@iNeedAPlaceToRent" routerLink="tenants/create">
+          I need place to rent (Tenant)
+        </button>
+        <button mat-menu-item i18n="@@iProvideServices" routerLink="services/create">
+          I provide services
+        </button>
       </mat-menu>
       <button mat-icon-button style="margin-right: 8px" class="hidden-xs">
         <mat-icon>message</mat-icon>
@@ -132,15 +119,20 @@
         <img src="{{user['photo']}}" class="profile-img">
       </button>
       <mat-menu #profileMenu="matMenu">
-        <button mat-menu-item [matMenuTriggerFor]="listings">My Listings</button>
+        <button mat-menu-item i18n="@@mainNavMyProfile">
+          My Profile
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item [matMenuTriggerFor]="listings" i18n="@@mainNavMyListings">My Listings</button>
         <mat-menu #listings="matMenu">
-          <button mat-menu-item>Flat sharing</button>
-          <button mat-menu-item>Flatmate</button>
-          <button mat-menu-item>Place to rent</button>
-          <button mat-menu-item>Tenant</button>
+          <button mat-menu-item i18n="@@mainNavMyPlaceToShareListings">Place to share</button>
+          <button mat-menu-item i18n="@@mainNavMyFlatmateListing">Flatmate</button>
+          <button mat-menu-item i18n="@@mainNavMyPlaceToRentListings">Place to rent</button>
+          <button mat-menu-item i18n="@@mainNavMyTenantListings">Tenant</button>
+          <button mat-menu-item i18n="@@mainNavMyServiceListings">Services</button>
         </mat-menu>
         <mat-divider></mat-divider>
-        <button mat-menu-item (click)="signOut()">
+        <button mat-menu-item (click)="signOut()" i18n="@@mainNavSignOut">
           Sign out
         </button>
       </mat-menu>

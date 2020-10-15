@@ -8,4 +8,5 @@ public class CityRequest {
     private String country;
     private String subCountry;
     private String geoNameId;
+    private String latLon;
 }

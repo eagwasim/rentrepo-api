@@ -13,7 +13,8 @@ export class BaseViewRedirectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.navigate(['en-GB', 'listings', 'flat-to-share']).finally();
+    let language = this.storage.get('x-lang') || 'en-GB';
+    this.router.navigate([language, 'listings', 'places', 'sharing']).finally();
   }
 
 }

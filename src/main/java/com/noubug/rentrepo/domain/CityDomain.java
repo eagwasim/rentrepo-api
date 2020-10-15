@@ -21,6 +21,6 @@ public class CityDomain {
 
     @Override
     public String toString() {
-        return String.format("%s, %s, %s", name, subCountry, country);
+        return String.format("%s, %s", name, country);
     }
 }

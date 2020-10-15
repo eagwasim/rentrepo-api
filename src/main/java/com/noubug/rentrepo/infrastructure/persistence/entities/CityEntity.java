@@ -12,13 +12,10 @@ import org.springframework.cloud.gcp.data.datastore.core.mapping.Entity;
 public class CityEntity extends AbstractPersistableEntity<Long> {
     private String name;
     private String country;
-    private String subCountry;
-    private String geoNameId;
     private String latLon;
-
 
     @Override
     public String toString() {
-        return String.format("%s, %s, %s", name, subCountry, country);
+        return String.format("%s, %s", name, country);
     }
 }

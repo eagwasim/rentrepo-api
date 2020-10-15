@@ -83,11 +83,8 @@ body {
 }
 
 .top-right-block {
-  width: 100%;
-  right: 0;
-  top: 0;
-  -webkit-transform: translate(-50%, 0);
-  position: absolute;
+  right: 44px;
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
 .listing-image {
@@ -95,4 +92,18 @@ body {
   max-height: 100%;
   width: auto;
   height: auto;
+}
+
+.listing-image-block {
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  height: auto;
+  width: auto;
+  min-height: 200px;
+  min-width: 200px;
+  text-align: center;
+  border: solid 1px #cbcbcb;
+  border-radius: 8px;
+  cursor: pointer
 }

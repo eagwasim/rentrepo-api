@@ -1,16 +1,16 @@
-<nav mat-tab-nav-bar *ngIf="selectedLanguage && !isMobile()" color="primary"
+<nav mat-tab-nav-bar *ngIf="selectedLanguage" color="primary" fxHide.lt-md="true"
      style="background: white" class="mat-elevation-z3">
   <!-- <span style="padding: 15px 20px 10px 20px; font-size: 15px; color: #616469" i18n="@@listingsNavLookingFor">What do you need?</span>
   --> <a mat-tab-link
-        [active]="activeLink == '/' + selectedLanguage +'/listings/flat-to-share'"
-        [routerLink]="'/' + selectedLanguage  + '/listings/flat-to-share'"
-        (click)="activeLink = '/' + selectedLanguage + '/listings/flat-to-share'"
-        i18n="@@listingsNavFlatToShare">
+         [active]="activeLink.includes('/' + selectedLanguage +'/listings/places/sharing')"
+         [routerLink]="'/' + selectedLanguage  + '/listings/places/sharing'"
+         (click)="activeLink = '/' + selectedLanguage + '/listings/places/sharing'"
+         i18n="@@listingsNavFlatToShare">
   <mat-icon class="icon-padding">king_bed</mat-icon>
-  Flat To Share
+  Place To Share
 </a>
   <a mat-tab-link
-     [active]="activeLink == '/' + selectedLanguage  +'/listings/flatmates'"
+     [active]="activeLink.includes( '/' + selectedLanguage  +'/listings/flatmates')"
      [routerLink]="'/' + selectedLanguage +'/listings/flatmates'"
      (click)="activeLink = '/' + selectedLanguage + '/listings/flatmates'"
      i18n="@@listingsNavFlatmate">
@@ -18,20 +18,28 @@
     Flatmate
   </a>
   <a mat-tab-link
-     [active]="activeLink == '/' + selectedLanguage + '/listings/place-to-rent'"
-     [routerLink]="'/' + selectedLanguage + '/listings/place-to-rent'"
-     (click)="activeLink = '/' + selectedLanguage + '/listings/place-to-rent'"
+     [active]="activeLink.includes('/' + selectedLanguage + '/listings/places/renting')"
+     [routerLink]="'/' + selectedLanguage + '/listings/places/renting'"
+     (click)="activeLink = '/' + selectedLanguage + '/listings/places/renting'"
      i18n="@@listingsNavPlaceToRent">
     <mat-icon class="icon-padding">apartment</mat-icon>
     Place To Rent
   </a>
   <a mat-tab-link
-     [active]="activeLink == '/' + selectedLanguage + '/listings/tenants'"
+     [active]="activeLink.includes('/' + selectedLanguage + '/listings/tenants')"
      [routerLink]="'/' + selectedLanguage + '/listings/tenants'"
      (click)="activeLink = '/' + selectedLanguage + '/listings/tenants'"
      i18n="@@listingsNavTenant">
     <mat-icon class="icon-padding">person</mat-icon>
     Tenant
+  </a>
+  <a mat-tab-link
+     [active]="activeLink.includes('/' + selectedLanguage + '/listings/services')"
+     [routerLink]="'/' + selectedLanguage + '/listings/services'"
+     (click)="activeLink = '/' + selectedLanguage + '/listings/services'"
+     i18n="@@listingsNavTenant">
+    <mat-icon class="icon-padding">room_service</mat-icon>
+    Services
   </a>
 </nav>
 <router-outlet></router-outlet>

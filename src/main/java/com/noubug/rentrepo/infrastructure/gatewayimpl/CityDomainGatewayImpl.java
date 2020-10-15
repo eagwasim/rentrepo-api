@@ -104,9 +104,8 @@ public class CityDomainGatewayImpl implements CityDomainGateway {
     private CityEntity from(CityDomain cityDomain) {
         CityEntity cityEntity = CityEntity.builder()
                 .country(cityDomain.getCountry())
-                .subCountry(cityDomain.getSubCountry())
-                .geoNameId(cityDomain.getGeoNameId())
                 .name(cityDomain.getName())
+                .latLon(cityDomain.getLatLon())
                 .build();
         cityEntity.setDateCreated(cityDomain.getDateCreated());
         cityEntity.setDateModified(cityDomain.getLastUpdated());
@@ -117,12 +116,11 @@ public class CityDomainGatewayImpl implements CityDomainGateway {
 
     private CityDomain from(CityEntity cityEntity) {
         return CityDomain.builder()
-                .geoNameId(cityEntity.getGeoNameId())
-                .subCountry(cityEntity.getSubCountry())
                 .country(cityEntity.getCountry())
                 .name(cityEntity.getName())
                 .dateCreated(cityEntity.getDateCreated())
                 .lastUpdated(cityEntity.getDateModified())
+                .latLon(cityEntity.getLatLon())
                 .id(cityEntity.getId())
                 .build();
     }

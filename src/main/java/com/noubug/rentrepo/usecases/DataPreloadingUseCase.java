@@ -1,6 +1,8 @@
 package com.noubug.rentrepo.usecases;
 
-import com.noubug.rentrepo.infrastructure.web.controllers.model.CityRequest;
+import com.noubug.rentrepo.infrastructure.web.controllers.model.CityRequestJSON;
+
+import java.util.List;
 
 public interface DataPreloadingUseCase {
     void preLoadCities();
@@ -9,5 +11,7 @@ public interface DataPreloadingUseCase {
 
     void clear();
 
-    void createCity(CityRequest cityRequest);
+    void createCity(CityRequestJSON cityRequestJSON);
+
+    void createCities(List<CityRequestJSON> cityRequestJSON);
 }

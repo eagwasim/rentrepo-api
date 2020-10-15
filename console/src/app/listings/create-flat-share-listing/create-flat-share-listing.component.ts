@@ -10,6 +10,7 @@ import {DataApiServiceService} from "../../commons/data-api-service.service";
 import {FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry} from "ngx-file-drop";
 import {FileHolder} from "../../commons/file-holder";
 import {NgxFirebaseClientService} from "@ngx-firebase/client";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-create-flat-share-listing',
@@ -29,7 +30,7 @@ export class CreateFlatShareListingComponent implements OnInit {
   allCurrencies: string[] = staticData.currencies;
   selectedServices: string[] = [];
   allServices: string[] = staticData.services;
-  filteredCities: string[] = [];
+  filteredCities: string[] = [""];
 
   listingImages: FileHolder[] = [];
 
@@ -38,7 +39,7 @@ export class CreateFlatShareListingComponent implements OnInit {
   @ViewChild('servicesInput') fruitInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor(private dataApiService: DataApiServiceService, private firebaseService: NgxFirebaseClientService) {
+  constructor(private dataApiService: DataApiServiceService, private firebaseService: NgxFirebaseClientService, private _snackBar: MatSnackBar) {
     this.filteredServices = this.servicesFormControl.valueChanges.pipe(
       startWith(null),
       map((fruit: string | null) => fruit ? this._filter(fruit) : this.allServices.slice()));
@@ -118,6 +119,9 @@ export class CreateFlatShareListingComponent implements OnInit {
       availableServices: new FormControl("", Validators.compose([
         Validators.required,
       ])),
+      genderPreference: new FormControl("any", Validators.compose([
+        Validators.required,
+      ])),
       minAgePreference: new FormControl("", Validators.compose([
         Validators.required,
         Validators.min(18),
@@ -128,7 +132,7 @@ export class CreateFlatShareListingComponent implements OnInit {
         Validators.min(18),
         Validators.max(65),
       ])),
-      employmentStatusPreference: new FormControl("", Validators.compose([
+      employmentStatusPreference: new FormControl("any", Validators.compose([
         Validators.required,
       ])),
       petPreference: new FormControl("", Validators.compose([
@@ -159,6 +163,18 @@ export class CreateFlatShareListingComponent implements OnInit {
   }
 
   createListing() {
+    let hasImage = false;
+    this.listingImages.forEach(value => {
+      if (!value.isEmpty()) {
+        hasImage = true;
+      }
+    });
+    if (!hasImage) {
+      this._snackBar.open("Please upload at least one image", null, {
+        duration: 3000,
+      });
+      return;
+    }
     console.log(this.formData.value);
   }
 

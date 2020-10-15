@@ -14,8 +14,9 @@ import {CustomMaterialModule} from "../commons/custom-material.module";
 import {CreateFlatShareListingComponent} from './create-flat-share-listing/create-flat-share-listing.component';
 import {A11yModule} from "@angular/cdk/a11y";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NgxFileDropModule} from "ngx-file-drop";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {HomeServicesViewComponent} from './home-services-view/home-services-view.component';
+import {HomeServicesDetailViewComponent} from './home-services-detail-view/home-services-detail-view.component';
 
 
 @NgModule({
@@ -30,6 +31,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     TenantsDetailViewComponent,
     TenantsViewComponent,
     CreateFlatShareListingComponent,
+    HomeServicesViewComponent,
+    HomeServicesDetailViewComponent,
   ],
   imports: [
     CommonModule,

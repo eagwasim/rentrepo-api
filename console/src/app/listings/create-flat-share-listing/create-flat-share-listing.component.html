@@ -39,7 +39,8 @@
             </select>
           </mat-form-field>
           <mat-form-field appearance="fill" class="fill-width" fxFlex="48%">
-            <input matInput type="number" class="example-right-align" placeholder="Amount" formControlName="amount"
+            <input matInput type="number" class="example-right-align"
+                   placeholder="Amount" formControlName="amount"
                    required>
             <span matSuffix>.00</span>
           </mat-form-field>
@@ -121,12 +122,21 @@
         </mat-form-field>
         <p class="cus-content-header " i18n="@@createFlatToShareFlatmatePreference">Flatmate Preference</p>
         <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
-          <mat-form-field appearance="fill" class="fill-width" fxFlex="49%">
+          <mat-form-field appearance="fill" class="fill-width" fxFlex="28%">
+            <mat-label i18n="@@createFlatToShareGender">Gender</mat-label>
+            <select matNativeControl required formControlName="genderPreference">
+              <option value="any" i18n="@@createFlatToShareGenderAny">Any</option>
+              <option value="female" i18n="@@createFlatToShareGenderFeMale">Female</option>
+              <option value="male" i18n="@@createFlatToShareGenderMale">Male</option>
+              <option value="non-binary" i18n="@@createFlatToShareGenderNonBinary">Non Binary</option>
+            </select>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="fill-width" fxFlex="34%">
             <mat-label i18n="@@createFlatToShareFlatmateMinAge">Min Age (min 18, max 65)</mat-label>
             <input matInput type="number" class="example-right-align" placeholder="Monthly Rate"
                    formControlName="minAgePreference">
           </mat-form-field>
-          <mat-form-field appearance="fill" class="fill-width" fxFlex="49%">
+          <mat-form-field appearance="fill" class="fill-width" fxFlex="34%">
             <mat-label i18n="@@createFlatToShareFlatmateMaxAge">Max Age (min 18, max 65)</mat-label>
             <input matInput type="number" class="example-right-align" placeholder="Monthly Rate"
                    formControlName="maxAgePreference">
@@ -136,6 +146,7 @@
           <mat-form-field appearance="fill" class="fill-width">
             <mat-label i18n="@@createFlatToShareFlatmateEmploymentStatus">Employment status</mat-label>
             <select matNativeControl required formControlName="employmentStatusPreference">
+              <option value="any" i18n="@@createFlatToShareEmploymentStatusEmployed">Any</option>
               <option value="employed" i18n="@@createFlatToShareEmploymentStatusEmployed">Employed</option>
               <option value="student" i18n="@@createFlatToShareEmploymentStatusStudent">Student</option>
               <option value="work-from-home" i18n="@@createFlatToShareEmploymentStatusEntrepreneur">Entrepreneur
@@ -155,17 +166,18 @@
     </div>
     <div fxLayout="column" fxFlex="48%">
       <p class="cus-content-header " i18n="@@createFlatToShareFlatImages">Flat Images</p>
-      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center" fxLayoutGap="4% grid">
-        <div *ngFor="let image of listingImages; index as i;" fxFlex="48%">
-          <div class="padded" fxFlex="100%" style="height: 250px; width: 100%; text-align: center; border: solid 1px #cbcbcb; border-radius: 8px">
-            <img src="{{image.getFile()}}" class="listing-image" (click)="image.openFile(i)">
-            <br>
-            <mat-progress-bar mode="determinate" [value]="image.percentageUpload" color="accent" [fxShow]="image.processing"></mat-progress-bar>
+      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly" fxLayoutGap="4% grid">
+        <div *ngFor="let image of listingImages; index as i;" fxFlex="40%" class="padded margin">
+          <div class="listing-image-block" fxFlex="100%" style="background-image: url('{{image.getFile()}}');"
+               fxLayoutAlign="bottom" fxLayout="column">
+            <mat-progress-bar [mode]="image.mode" [value]="image.percentageUpload" color="accent"
+                              [fxShow]="image.processing"></mat-progress-bar>
+            <span fxFlex="100%" (click)="image.openFile(i)"></span>
+            <input hidden type="file" id="image-{{i}}" (change)="image.onfileSelected($event)" accept="image/*, image/heic">
+            <button mat-raised-button color="warn" [fxShow]="!image.isEmpty()" (click)="image.reset(i)">
+              REMOVE
+            </button>
           </div>
-          <input hidden type="file" id="image-{{i}}" (change)="image.onfileSelected($event)">
-          <button mat-icon-button class="top-right-block" [fxShow]="!image.isEmpty()" (click)="image.remove()">
-            <mat-icon style="color: red">highlight_off</mat-icon>
-          </button>
         </div>
       </div>
     </div>

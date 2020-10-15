@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 public interface CityEntityRepository extends DatastoreRepository<CityEntity, Long> {
-    Optional<CityEntity> findByNameAndAndSubCountryAndAndCountry(String name, String subCountry, String country);
+    Optional<CityEntity> findByNameAndCountry(String name, String country);
 
     Page<CityEntity> findByNameGreaterThanEqualAndNameLessThan(String queryStr, String queryString, Pageable pageable);
 }

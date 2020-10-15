@@ -10,6 +10,7 @@ import {ConversationBaseViewComponent} from "./messaging/conversation-base-view/
 import {BaseViewComponent} from "./commons/base-view/base-view.component";
 import {ListingsBaseViewComponent} from "./listings/listings-base-view/listings-base-view.component";
 import {CreateFlatShareListingComponent} from "./listings/create-flat-share-listing/create-flat-share-listing.component";
+import {HomeServicesViewComponent} from "./listings/home-services-view/home-services-view.component";
 
 const routes: Routes = [
   {
@@ -18,7 +19,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'listings/flat-to-share',
+        redirectTo: 'listings/places/sharing',
         pathMatch: 'prefix'
       },
       {
@@ -27,11 +28,11 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'flat-to-share',
+            redirectTo: 'places/sharing',
             pathMatch: 'prefix'
           },
           {
-            path: 'flat-to-share',
+            path: 'places/sharing',
             component: FlatToShareViewComponent,
           },
           {
@@ -39,17 +40,21 @@ const routes: Routes = [
             component: FlatmatesViewComponent
           },
           {
-            path: 'place-to-rent',
+            path: 'places/renting',
             component: PlaceToRentViewComponent
           },
           {
             path: 'tenants',
             component: TenantsViewComponent
           },
+          {
+            path: 'services',
+            component: HomeServicesViewComponent
+          },
         ]
       },
       {
-        path: 'flat-to-share/create',
+        path: 'places/sharing/create',
         component: CreateFlatShareListingComponent
       },
       {

@@ -2,13 +2,14 @@ package com.noubug.rentrepo.usecases.impl;
 
 import com.noubug.rentrepo.domain.CityDomain;
 import com.noubug.rentrepo.domain.gateway.CityDomainGateway;
-import com.noubug.rentrepo.infrastructure.web.controllers.model.CityRequest;
+import com.noubug.rentrepo.infrastructure.web.controllers.model.CityRequestJSON;
 import com.noubug.rentrepo.usecases.DataPreloadingUseCase;
 import lombok.extern.log4j.Log4j2;
 
 import javax.inject.Named;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
 
 @Named
 @Log4j2
@@ -35,15 +36,21 @@ public class DataPreloadingUseCaseImpl implements DataPreloadingUseCase {
     }
 
     @Override
-    public void createCity(CityRequest cityRequest) {
+    public void createCity(CityRequestJSON cityRequestJSON) {
         this.cityDomainGateway.save(CityDomain.builder()
-                .name(cityRequest.getName())
-                .country(cityRequest.getCountry())
-                .subCountry(cityRequest.getSubCountry())
-                .geoNameId(cityRequest.getGeoNameId())
+                .name(cityRequestJSON.getName())
+                .country(cityRequestJSON.getCountry())
+                .subCountry(cityRequestJSON.getSubCountry())
+                .geoNameId(cityRequestJSON.getGeoNameId())
                 .dateCreated(LocalDateTime.now(ZoneOffset.UTC))
                 .lastUpdated(LocalDateTime.now(ZoneOffset.UTC))
+                .latLon(cityRequestJSON.getLatLon())
                 .build());
+    }
+
+    @Override
+    public void createCities(List<CityRequestJSON> cityRequestJSON) {
+        cityRequestJSON.forEach(this::createCity);
     }
 
     private CityDomain from(String csvRow) {
